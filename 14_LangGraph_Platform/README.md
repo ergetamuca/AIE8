@@ -39,7 +39,10 @@ Run the repository and complete the following:
 Compare the `agent` and `agent_helpful` assistants defined in `langgraph.json`. Where does the helpfulness evaluator fit in the graph, and under what condition should execution route back to the agent vs. terminate?
 
 ##### ✅ Answer:
-_(enter answer here)_
+- *agent* uses the simple graph that terminates immediately after tool execution, while *agent_helpful* adds a helpfulness evaluator that checks if the response adequately addresses the user's query. 
+- When the agent finishes calling tools, it routes to the helpfulness node instead of ending, which evaluates the final response against the initial query using a separate model. 
+- Execution routes back to the agent if unhelpful "N" or terminates if helpful "Y", creating a feedback loop for self-improvement. 
+
 
 #### 🏗️ Activity #1 Debugging A Graph
 
@@ -50,8 +53,9 @@ Select the `agent_with_helpfulness` and set one or more interrupts (at least one
 What are your thoughts on when you would use a Before interrupt vs. an After interrupt?
 
 ##### ✅ Answer:
-_(enter answer here)_
+Before interrupts are like "preflight checks". It helps answer "Should I proceed?" They help do a check before execution. These can be useful for situation where you need to validate inputs before proceeding, as they would have big impact on the consequent actions. For example, user permissions and authentication steps; content moderation steps that checked for flagged words. 
 
+After interrupts are more like "quality gates". It helps answer "Did I succeed?" They help check that the outputs are valid, and align with the expectations. For example, it can be useful in data analyses to validate data formats, and error codes. Or it can be useful to validate how helpful an answer is based on the audience. In my project's case, it can help with understanding whether the explanation was clear enough for a student's grade level. 
 
 
 <details>
