@@ -37,15 +37,20 @@ You will be required to submit a link to your GitHub, as well as screenshots of 
 Please evaluate your system on the following questions:
 
 1. Explain the concept of object-oriented programming in simple terms to a complete beginner. 
-    - Aspect Tested:
+    - Aspect Tested: Whether the response was actually simple to understand in terms of the examples shared, how it flowed from beginning to end. 
+    -  Comment: overall the system managed to explain key terms with a simple "car" example end to end which was understandable. 
 2. Read the following paragraph and provide a concise summary of the key points…
-    - Aspect Tested:
+    - Aspect Tested: Ability to synthesize the information into a short summary that still kept the core points intact.
+    - Comment: Overall it did an okay job. The summary was more like a definition - not necessarily targetting a complete beginner, but rather high level. 
 3. Write a short, imaginative story (100–150 words) about a robot finding friendship in an unexpected place.
-    - Aspect Tested:
+    - Aspect Tested: Whether the story was actually short and imaginative, and whether it coherently read like a story.
+    - Comment: Overall the story matched the expectations. It didn't have a comprehensive story-type narrative (where you'd find plot, conflict, and theme), it mainly focused on characters and setting.
 4. If a store sells apples in packs of 4 and oranges in packs of 3, how many packs of each do I need to buy to get exactly 12 apples and 9 oranges?
-    - Aspect Tested:
+    - Aspect Tested: Accuracy of the response, as well as how the logic of it was broken down.
+    - Comment: The answer was correct, and the explanation was correct. It may be slightly redundant wording but overall okay. 
 5. Rewrite the following paragraph in a professional, formal tone…
-    - Aspect Tested:
+    - Aspect Tested: Ability to substitute informal wording with more formal terms, and overall the tone of the description should feel formal.
+    - Comment: Overall performed as expected, I can notice some more "text book" formal definition from it. 
 
 This "vibe check" now serves as a baseline, of sorts, to help understand what holes your application has.
 
@@ -59,6 +64,9 @@ This "vibe check" now serves as a baseline, of sorts, to help understand what ho
 
 What are some limitations of vibe checking as an evaluation tool?
 ##### ✅ Answer:
+- It's subjective, not standardized based on certain metrics. It can mean something different to anyone.
+- Heavily biased, not very actionable and difficult to reproduce rationale if someone else were to try and do the same exercise. 
+- It may be good enough for simple scenarios use cases such as this homework, but it would be very difficult or impossible to scale for complex use cases that require more critical thinking. 
 
 ### 🚧 Advanced Build (OPTIONAL):
 
