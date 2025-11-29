@@ -25,7 +25,7 @@ async def main() -> None:
 
     # --8<-- [start:A2ACardResolver]
 
-    base_url = 'http://localhost:10000'
+    base_url = 'http://localhost:10001'
 
     # Increase timeout for LLM responses (default is 5 seconds, which is too short)
     async with httpx.AsyncClient(timeout=httpx.Timeout(60.0)) as httpx_client:
@@ -103,7 +103,10 @@ async def main() -> None:
                 f'Critical error fetching public agent card: {e}', exc_info=True
             )
             raise RuntimeError(
-                'Failed to fetch the public agent card. Cannot continue.'
+                f'Failed to fetch the public agent card from {base_url}. '
+                'The A2A server is not running. Please start it first by running:\n'
+                '  uv run python -m app\n'
+                'Then run this test client again.'
             ) from e
 
         # --8<-- [start:send_message]

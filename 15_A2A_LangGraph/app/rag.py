@@ -1,7 +1,7 @@
 """Retrieval-Augmented Generation (RAG) utilities and tool.
 
 This module builds an in-memory RAG pipeline that:
-- Loads PDF documents from `RAG_DATA_DIR` (default: "data").
+- Loads PDF and CSV documents from `RAG_DATA_DIR` (default: "data").
 - Splits documents into chunks using a token-aware splitter.
 - Embeds chunks with OpenAI and stores vectors in an in-memory Qdrant store.
 - Exposes a LangChain Tool `retrieve_information` that retrieves relevant
@@ -14,7 +14,7 @@ from functools import lru_cache
 from typing import Annotated, List
 
 import tiktoken
-from langchain_community.document_loaders import DirectoryLoader, PyMuPDFLoader
+from langchain_community.document_loaders import DirectoryLoader, PyMuPDFLoader, CSVLoader
 from langchain_community.vectorstores import Qdrant
 from langchain_core.documents import Document
 from langchain_core.output_parsers import StrOutputParser
@@ -43,20 +43,33 @@ def _build_rag_graph(data_dir: str):
     """Construct and compile a minimal RAG graph.
 
     Steps:
-    1) Load PDFs from `data_dir` recursively (best-effort).
+    1) Load PDFs and CSVs from `data_dir` recursively (best-effort).
     2) Split documents into token-aware chunks.
     3) Create embeddings and an in-memory Qdrant vector store retriever.
     4) Define a chat prompt and generation model.
     5) Wire a two-node graph: retrieve -> generate.
     """
+    documents = []
+    
     # Load PDFs from data directory (recursive)
     try:
-        directory_loader = DirectoryLoader(
+        pdf_loader = DirectoryLoader(
             data_dir, glob="**/*.pdf", loader_cls=PyMuPDFLoader
         )
-        documents = directory_loader.load()
+        pdf_docs = pdf_loader.load()
+        documents.extend(pdf_docs)
     except Exception:
-        documents = []
+        pass
+    
+    # Load CSV files from data directory
+    try:
+        csv_loader = DirectoryLoader(
+            data_dir, glob="**/*.csv", loader_cls=CSVLoader
+        )
+        csv_docs = csv_loader.load()
+        documents.extend(csv_docs)
+    except Exception:
+        pass
 
     # Split documents
     try:
@@ -116,7 +129,7 @@ def _get_rag_graph():
 def retrieve_information(
     query: Annotated[str, "query to ask the retrieve information tool"]
 ):
-    """Use Retrieval Augmented Generation to retrieve information about student loan policies"""
+    """Use Retrieval Augmented Generation to retrieve information from local documents (PDFs and CSV files). Use this tool when you need to search through uploaded documents, policy documents, project lists, or any local data files."""
     graph = _get_rag_graph()
     result = graph.invoke({"question": query})
     # Prefer returning the response string if available

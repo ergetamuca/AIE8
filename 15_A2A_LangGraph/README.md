@@ -89,13 +89,16 @@ What are the core components of an `AgentCard`?
 
 ##### ✅ Answer:
 
-<br />
+<br /> Name, description, URL, version for agent identification, capabilities and skills. 
+Capabilities - define how agent communicates (streaming, push notifications etc)
+Skills - the list of specific tasks that an agent can perform (web search, document retrieval etc)
 
 ### ❓ Question #2:
 
 Why is A2A (and other such protocols) important in your own words?
 
 ##### ✅ Answer:
+A2A and similar protocols help set a common way for AI agents to talk to each other, similar to a shared language. They let agents work together and share tasks, so one agent can call another's skills without special integration. 
 
 <br /><br />
 
